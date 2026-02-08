@@ -1,0 +1,45 @@
+replicaCount: 1
+
+image:
+  repository: todo-backend
+  tag: latest
+  pullPolicy: Never
+
+service:
+  type: NodePort
+  port: 7860
+  targetPort: 7860
+  nodePort: 30786
+
+resources:
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+  limits:
+    cpu: "1000m"
+    memory: "1Gi"
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 7860
+  initialDelaySeconds: 15
+  periodSeconds: 30
+  timeoutSeconds: 5
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 7860
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+
+config:
+  PORT: "7860"
+  CORS_ORIGINS: "http://localhost:3000"
+
+secrets:
+  DATABASE_URL: "postgresql://user:password@host/dbname"
+  BETTER_AUTH_SECRET: "your_better_auth_secret"
+  OPENAI_API_KEY: "sk-your-openai-api-key"

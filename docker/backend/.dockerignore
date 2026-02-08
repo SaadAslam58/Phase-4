@@ -1,0 +1,12 @@
+backend/venv/
+backend/__pycache__/
+backend/.env
+.git/
+.specify/
+specs/
+history/
+docker/
+helm/
+k8s/
+frontend/
+*.md
